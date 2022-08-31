@@ -1,0 +1,14 @@
+*credentials.txt
+*credentials.py
+*diagnostic.data*
+*storage.bson
+*__pycache__*
+*.DS_Store
+*.DS_Store
+*__pycache__*
+*storage.bson
+*diagnostic.data*
+*credentials.py
+*ipynb
+*.mongodb*
+*ipynb_checkpoints*

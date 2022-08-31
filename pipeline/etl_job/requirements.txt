@@ -1,0 +1,7 @@
+nltk
+vaderSentiment
+pymongo
+sqlalchemy
+psycopg2==2.9.3
+pandas
+sqlalchemy_utils

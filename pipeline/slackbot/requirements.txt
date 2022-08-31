@@ -1,0 +1,4 @@
+sqlalchemy
+psycopg2==2.9.3
+pandas
+requests
