@@ -5,32 +5,33 @@ import json
 import time
 import tweepy
 import pymongo
-import credentials
+import config
 
 # Create pymongo connection and a collection within mongodb
-
 def create_collection():
-    '''Connect to mongodb and create a collection to store tweets.'''
+    '''Connects to mongodb and create a collection to store tweets.'''
 
     client = pymongo.MongoClient(host= 'localhost', port=27017)
     # Create mongodb collection
     collection = client.crypto_db.crypto_collection
+   # x = collection.delete_many({})
+   # print(x.deleted_count, "documents deleted")
     return collection
 
-# Authenticate access credentials to twitter API
+# Authenticate access config to twitter API
 def authenticate():
-    """Function for handling Twitter Authentication, credentials.py stores the following keys:
+    """Function for handling Twitter Authentication, config.py stores the following keys:
        1. API_KEY
        2. API_SECRET
        3. ACCESS_TOKEN
        4. ACCESS_TOKEN_SECRET
-       5. bearer_token
+       5. BEARER_TOKEN
     """
     auth = tweepy.OAuth1UserHandler(
-    credentials.API_KEY,
-    credentials.API_KEY_SECRET,
-    credentials.ACCESS_TOKEN,
-    credentials.ACCESS_TOKEN_SECRET)
+    config.API_KEY,
+    config.API_KEY_SECRET,
+    config.ACCESS_TOKEN,
+    config.ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth, wait_on_rate_limit=True)
     return api
 
@@ -48,8 +49,8 @@ class Streamer(tweepy.StreamingClient): # Streamer class inherits from tweepy.St
         print('Connected to Twitter Streaming API') # prints once tweets begin to stream
 
     def on_data(self, data): # data received from the stream is passed to this method
-        '''This method is called when new data arrives from the stream.
-        It converts the data to json format and stores it in mongodb'''
+        '''Method called when new data arrives from the stream.
+        Converts the data to json format and stores it in mongodb'''
 
         full = json.loads(data) # convert data to json format
         tweet_data = full['data']
@@ -65,7 +66,7 @@ class Streamer(tweepy.StreamingClient): # Streamer class inherits from tweepy.St
             }
             collection.insert_one(self.new_tweet) # insert each tweet into mongodb collection
             print('Tweet stored in the the collection:', self.new_tweet)
-            time.sleep(60)
+            time.sleep(30)
 
     def on_error(self, status):
         '''Disconnect stream when rate limit is reached'''
@@ -75,15 +76,15 @@ class Streamer(tweepy.StreamingClient): # Streamer class inherits from tweepy.St
 
 
 def initiate_stream_object():
-    ''' Initiate the stream object'''
-    stream = Streamer(bearer_token = credentials.bearer_token)
+    ''' Initiates the stream object'''
+    stream = Streamer(bearer_token = config.BEARER_TOKEN)
     return stream
 
 # Define three functions that: first get the current rules in place,
 # delete them (to start with a blank slate,
 # and then set new rules for streaming)
 def get_rules():
-    '''Get current filtering rules set for streaming'''
+    '''Returns current filtering rules set for streaming'''
 
     rules = stream.get_rules()
     if rules.data is not None:
@@ -94,7 +95,7 @@ def get_rules():
 
 
 def delete_all_rules(rules, stream):
-    '''Delete all rules set for streaming'''
+    '''Deletes all rules set for streaming'''
     rule_ids = []
     try:
         if rules.data is not None:
@@ -110,21 +111,20 @@ def delete_all_rules(rules, stream):
         print("no rules to delete")
 
 def set_rules():
-    '''Set rules for streaming'''
+    '''Sets rules for streaming'''
     search_terms = ['ethereum lang:en', 'bitcoin lang:en', 'crypto lang:en']
     for term in search_terms:
         stream.add_rules(tweepy.StreamRule(term))
 
 # Start the stream, filter based on rules added
 def get_stream():
-    '''Start streaming tweets'''
+    '''Starts streaming tweets'''
     stream.filter(
     tweet_fields=['referenced_tweets', 'author_id', 'created_at', 'public_metrics'],
     user_fields=['name', 'username'])
 
 # Execute the script
 if __name__ == '__main__':
-    '''Execute the script'''
     collection = create_collection()
     api = authenticate()
     stream = initiate_stream_object()
