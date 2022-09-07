@@ -11,7 +11,7 @@ import config
 def create_collection():
     '''Connects to mongodb and create a collection to store tweets.'''
 
-    client = pymongo.MongoClient(host= 'localhost', port=27017)
+    client = pymongo.MongoClient(host='mongodb', port=27017)
     # Create mongodb collection
     collection = client.crypto_db.crypto_collection
    # x = collection.delete_many({})

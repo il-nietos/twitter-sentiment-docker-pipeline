@@ -1,4 +1,5 @@
 pandas
 tweepy
-credentials
 pymongo
+config
+dnspython

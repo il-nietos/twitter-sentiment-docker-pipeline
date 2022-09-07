@@ -5,6 +5,7 @@
 import credentials
 import tweepy
 import pymongo
+import time
 
 #---------------------------------------#
 # Create pymongo connection
@@ -16,7 +17,7 @@ db = client.tweet_db
 # Create mongodb collection
 collection = db.tweet_collection
 
-
+ 
 #---------------------------------------#
 # Connect to twitter API
 client = tweepy.Client(
@@ -51,9 +52,7 @@ cursor = tweepy.Paginator(
 for tweet in cursor:
     tweet_new = {'tweet': tweet.text}
     collection.insert_one(tweet_new)
+    print(tweet)
 
 # Execute this script when run directly
-if __name__ == '__main__':
-    while True:
-        stream_tweets(5, warning_log)
-        time.sleep(30)
+# if __name__ == '__main__':

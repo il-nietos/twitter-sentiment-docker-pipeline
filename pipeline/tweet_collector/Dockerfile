@@ -13,4 +13,4 @@ COPY requirements.txt /app
 # equivalent to being in the container terminal and running "pip install -r requirements.txt"
 RUN pip install -r requirements.txt
 
-CMD ["python", "get_tweets.py"]
+CMD ["python", "stream_tweets.py"]
