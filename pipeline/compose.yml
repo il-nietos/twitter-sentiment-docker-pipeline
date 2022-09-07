@@ -1,34 +1,39 @@
+version: '3'
+
 services:
+
     tweet_collector:
         build: tweet_collector/
         volumes:
-        - ./tweet_collector/:/app/
+          - ./tweet_collector/:/app/
         depends_on:
-        - mongodb
+          - mongodb
         
     mongodb:
         image: mongo
         ports:
-        - 27017:27017
+          - 27017:27017
 
     etl_job:
       build: etl_job/
       volumes:
-      - ./etl_job/:/app/
+        - ./etl_job/:/app/
       depends_on:
-      -mongodb
-      -postgresdb
+        - mongodb
+        - postgresdb
 
-    postgresdb:
+    postgresdb: # should this be postgres? 
       image: postgres
       ports:
-      - 5555:5432
+        - 5555:5432
       environment:
-      - POSTGRES_USER=docker_user
-      - POSTGRES_PASSWORD=1234
-      - POSTGRES_DB=twitter
+        - POSTGRES_USER=docker_user
+        - POSTGRES_PASSWORD=1234
+        - POSTGRES_DB=twitter
 
     slackbot:
       build: slackbot/
       volumes:
-      - ./slackbot/:/app/
+        - ./slackbot/:/app/
+      depends_on:
+        - postgresdb
