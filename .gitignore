@@ -12,3 +12,4 @@
 *ipynb
 *.mongodb*
 *ipynb_checkpoints*
+*docker_commands.md*
