@@ -13,3 +13,4 @@
 *.mongodb*
 *ipynb_checkpoints*
 *docker_commands.md*
+*get_tweets.py*
