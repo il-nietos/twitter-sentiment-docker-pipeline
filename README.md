@@ -17,6 +17,7 @@ Automated sentiment analysis of tweets of a chosen user. The programm, run by Do
 
 * Python 3.9
 * Docker 
+* tweepy
 * MongoDB
 * pymongo
 * PostgreSQL
@@ -35,7 +36,7 @@ $ git clone [https://github.com/il-nietos/twitter-sentiment-docker-pipeline.git]
 ```
 $ conda install --name <environment_name> --file requirements.txt
 ```
-3. Add your Twitter and Slack credentials to the config_example.py and rename to config.py
+3. Add your Twitter credentials and Slack credentials 
 
 
 
@@ -43,3 +44,7 @@ $ conda install --name <environment_name> --file requirements.txt
 ```
 $ docker-compose build && docker-compose up
 ```
+
+## Note
+
+The tweepy library that allows users to access twitter API is frequently updated. Therefore functions used in this project may not function as they should.
