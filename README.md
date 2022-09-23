@@ -28,7 +28,7 @@ Automated sentiment analysis of tweets of a chosen user. The programm, run by Do
 (Install Docker: https://docs.docker.com/get-docker/)
 
 
-1. Clone this repository: git clone https://github.com/Ayazdi/tweetbot.git
+1. Clone this repository: git clone [https://github.com/il-nietos/twitter-sentiment-docker-pipeline.git]
 
 2. Install packages in a conda environment 
 $ conda install --name <environment_name> --file requirements.txt
