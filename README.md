@@ -1,4 +1,4 @@
-# Dockerized pipeline to analyse sentiment of tweets and post them to a Slack channel
+# Dockerized ETL-pipeline for tweet sentiment analysis
 
 ## General info
 Automated sentiment analysis of tweets of a Twitter user. The programm will get the latest tweets of the user, save them in a mongodb, analyze the sentiment of each tweet, save them in a postgresdb and finally post the tweet with the most negative and the tweet with the most positive sentiment to slack via a slackbot. Each of this processes is realized in a docker container.
