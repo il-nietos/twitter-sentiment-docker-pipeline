@@ -14,28 +14,34 @@ Automated sentiment analysis of tweets of a chosen user. The programm, run by Do
 4. Post the tweet to a slack channel using a slackbot
 
 ## Technologies
-* Python 3.9.7
+
+* Python 3.9
 * Docker 
+* MongoDB
+* pymongo
+* PostgreSQL
+* SQLAlchemy
+* VaderSentiment
 
 ## Setup
 
-1. Install packages in a conda environment 
+(Install Docker: https://docs.docker.com/get-docker/)
+
+
+1. Clone this repository: git clone https://github.com/Ayazdi/tweetbot.git
+
+2. Install packages in a conda environment 
 $ conda install --name <environment_name> --file requirements.txt
 
 
-2. In the stream_tweets.py file add your Twitter credentials
+3. Add your Twitter and Slack credentials to the config_example.py and rename to config.py
 
-3. In the post_tweet.py file add your slack webhook_url:
+4. In the post_tweet.py file add your slack webhook_url:
 ```
  webhook_url = "<webhook_url>"
 ```
 
-4. To create all docker images, go to the directory containing the compose.yml file and run in your terminal:
+5. To start running the docker compose and begin streaming tweets, go to the directory containing the compose.yml file and run in your terminal:
 ```
-$ docker-compose build
-```
-
-5. Finall, to start all docker containers run in the terminal:
-```
-$ docker-compose up -d
+$ docker-compose build && docker-compose up
 ```
