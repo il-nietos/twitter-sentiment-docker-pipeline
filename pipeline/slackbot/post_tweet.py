@@ -35,7 +35,7 @@ while True:
     # get value of text and sentiment
     text_tweet = tweet['text'].iloc[0]
     sentiment_tweet =  tweet['score'].iloc[0]
-    like_count_tweet = tweet['posted'].iloc[0]
+    like_count_tweet = tweet['like_count'].iloc[0]
 
 
 # Create JSON data object
