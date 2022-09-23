@@ -37,6 +37,7 @@ $ conda install --name <environment_name> --file requirements.txt
 ```
 3. Add your Twitter and Slack credentials to the config_example.py and rename to config.py
 
+
 4. To start running the docker compose and begin streaming tweets, go to the directory containing the compose.yml file and run in your terminal:
 ```
 $ docker-compose build && docker-compose up
