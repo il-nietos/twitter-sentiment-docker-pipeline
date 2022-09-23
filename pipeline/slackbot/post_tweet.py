@@ -56,4 +56,4 @@ while True:
 
     # Post the data to the Slack
     requests.post(url=WEBHOOK_SLACK, json = data, timeout=30)
-    print(data["blocks"][0]["text"]["text"])
+    

@@ -11,27 +11,27 @@ import config
 def create_collection():
     '''Connects to mongodb and create a collection to store tweets.'''
 
-    client = pymongo.MongoClient(host='mongodb', port=27017)
+    client = pymongo.MongoClient(host='mongodb')  # hostname = servicename for docker-compose pipeline
     # Create mongodb collection
     collection = client.crypto_db.crypto_collection
-   # x = collection.delete_many({})
-   # print(x.deleted_count, "documents deleted")
+    x = collection.delete_many({})
+    print(x.deleted_count, "documents deleted")
     return collection
 
 # Authenticate access config to twitter API
 def authenticate():
-    """Function for handling Twitter Authentication, config.py stores the following keys:
+    """Function for handling Twitter Authentication, add here your own keys.
+    config.py stores the following keys:
        1. API_KEY
        2. API_SECRET
        3. ACCESS_TOKEN
        4. ACCESS_TOKEN_SECRET
-       5. BEARER_TOKEN
     """
     auth = tweepy.OAuth1UserHandler(
-    config.API_KEY,
-    config.API_KEY_SECRET,
-    config.ACCESS_TOKEN,
-    config.ACCESS_TOKEN_SECRET)
+    config.API_KEY, # replace this with your own key
+    config.API_KEY_SECRET, # replace this with your own key
+    config.ACCESS_TOKEN, # replace this with your own key
+    config.ACCESS_TOKEN_SECRET) # replace this with your own key
     api = tweepy.API(auth, wait_on_rate_limit=True)
     return api
 
@@ -54,19 +54,19 @@ class Streamer(tweepy.StreamingClient): # Streamer class inherits from tweepy.St
 
         full = json.loads(data) # convert data to json format
         tweet_data = full['data']
-        try:
-            if tweet_data['referenced_tweets'] is None: # filters out retweets
-                pass
-        except:
-            self.new_tweet = {
-            'text': tweet_data['text'],
-            'id': tweet_data['id'],
-            'like_count': tweet_data['public_metrics']['like_count'],
-            'timestamp': tweet_data['created_at']
-            }
-            collection.insert_one(self.new_tweet) # insert each tweet into mongodb collection
-            print('Tweet stored in the the collection:', self.new_tweet)
-            time.sleep(30)
+        #try:
+        #    if tweet_data['referenced_tweets'] is None: # filters out retweets
+        #        pass
+        #except:
+        self.new_tweet = {
+        'text': tweet_data['text'],
+        'id': tweet_data['id'],
+        'like_count': tweet_data['public_metrics']['like_count'],
+        'timestamp': tweet_data['created_at']
+        }
+        collection.insert_one(self.new_tweet) # insert each tweet into mongodb collection
+        print('Tweet stored in the the collection:', self.new_tweet)
+        time.sleep(30)
 
     def on_error(self, status):
         '''Disconnect stream when rate limit is reached'''
@@ -77,7 +77,7 @@ class Streamer(tweepy.StreamingClient): # Streamer class inherits from tweepy.St
 
 def initiate_stream_object():
     ''' Initiates the stream object'''
-    stream = Streamer(bearer_token = config.BEARER_TOKEN)
+    stream = Streamer(bearer_token = config.BEARER_TOKEN) # replace this with your own key
     return stream
 
 # Define three functions that: first get the current rules in place,
