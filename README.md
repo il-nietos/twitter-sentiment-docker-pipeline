@@ -26,7 +26,7 @@ Automated sentiment analysis of tweets of a chosen user. The programme, run by D
 
 ## Setup
 
-(Install Docker: https://docs.docker.com/get-docker/)
+Install [Docker](https://docs.docker.com/get-docker/)
 
 1. Clone this repository: 
 ```
@@ -38,9 +38,9 @@ $ conda install --name <environment_name> --file requirements.txt
 ```
 3. Credentials:
 
-3.a. Add your Twitter credentials into a config.py file located in the tweet_collector folder (See twitter API instructions: https://developer.twitter.com/en/docs/twitter-api)
+3.a. Add your Twitter credentials into a config.py file located in the tweet_collector folder (See [twitter API instructions](https://developer.twitter.com/en/docs/twitter-api)
 
-3.b. Add your Slack credentials to config.py file located in slack_bot folder (see Slack webhook instructions: https://api.slack.com/incoming-webhooks)
+3.b. Add your Slack credentials to config.py file located in slack_bot folder (see [Slack webhook instructions](https://api.slack.com/incoming-webhooks)
 
 4. To start running the docker compose and begin streaming tweets:
 ```
