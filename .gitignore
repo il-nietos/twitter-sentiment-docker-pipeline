@@ -4,15 +4,9 @@
 *storage.bson
 *__pycache__*
 *.DS_Store
-*.DS_Store
-*__pycache__*
-*storage.bson
-*diagnostic.data*
-*credentials.py
 *ipynb
 *.mongodb*
 *ipynb_checkpoints*
 *docker_commands.md*
-*get_tweets.py*
 *config.py*
 *get_tweets.py
