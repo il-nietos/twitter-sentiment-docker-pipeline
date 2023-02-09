@@ -2,7 +2,7 @@
 
 ## Description
 
-Automated sentiment analysis of tweets of a chosen user. The programm, run by Docker compose will:
+Automated sentiment analysis of tweets of a chosen user. The programme, run by Docker compose will:
 
 1. Stream incoming tweets with the help of twitter API
 2. Store tweets in MongoDB
@@ -36,15 +36,18 @@ $ git clone [https://github.com/il-nietos/twitter-sentiment-docker-pipeline.git]
 ```
 $ conda install --name <environment_name> --file requirements.txt
 ```
-3. Add your Twitter credentials and Slack credentials 
+3. Credentials:
 
+3.a. Add your Twitter credentials into a config.py file located in the tweet_collector folder (See twitter API instructions: https://developer.twitter.com/en/docs/twitter-api)
 
+3.b. Add your Slack credentials to config.py file located in slack_bot folder (see Slack webhook instructions: https://api.slack.com/incoming-webhooks)
 
-4. To start running the docker compose and begin streaming tweets, go to the directory containing the compose.yml file and run in your terminal:
+4. To start running the docker compose and begin streaming tweets:
 ```
+$ cd pipeline
 $ docker-compose build && docker-compose up
 ```
 
 ## Note
 
-The tweepy library that allows users to access twitter API is frequently updated. Therefore functions used in this project may not function as they should.
+The tweepy library that allows users to access twitter API is frequently updated. Therefore functions used in this project may not function as they should later on.
